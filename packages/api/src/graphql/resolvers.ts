@@ -40,7 +40,7 @@ export const resolvers = {
   },
 
   Mutation: {
-    updateCity: (_, { id, visited, wantToVisit }: UpdateCityArgs) => {
+    updateCity: (_, { id, visited, wantToVisit }: UpdateCityArgs): City => {
       const targetCity = cities.find(city => city.id === id)
 
       if (!targetCity) {

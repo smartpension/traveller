@@ -1,3 +1,1 @@
-export const isDefined = (i: any) => {
-  return i !== undefined
-}
+export const isDefined = (i: boolean | undefined): boolean => i !== undefined
