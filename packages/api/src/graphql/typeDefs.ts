@@ -1,20 +1,14 @@
-const { gql } = require('apollo-server');
+import { gql } from 'apollo-server'
 
 export const typeDefs = gql`
-type City {
-  name: String
-  country: String
-  visited: Boolean
-  wantToVisit: Boolean
-}
-
+  type City {
+    name: String
+    country: String
+    visited: Boolean
+    wantToVisit: Boolean
+  }
 
   type Query {
-    cities(
-      name: String
-      country: String
-      visited: Boolean
-      wantToVisit: Boolean
-    ): [City]
+    cities(name: String, country: String, visited: Boolean, wantToVisit: Boolean): [City]
   }
-`;
+`
