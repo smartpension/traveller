@@ -1,0 +1,14 @@
+{
+  "root": true,
+  "extends": ["../../.eslintrc"],
+  "env": {
+    "browser": true,
+    "jest": true,
+    "node": true
+  },
+  "settings": {
+    "babel": true,
+    "compat": true
+  },
+  "ignorePatterns": ["/dist"]
+}

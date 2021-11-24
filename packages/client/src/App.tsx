@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React from 'react'
+import type { FC } from 'react'
 import {
   ChakraProvider,
   Box,
@@ -10,11 +11,11 @@ import {
   theme,
   InputGroup,
   IconButton,
-} from '@chakra-ui/react';
-import { Search2Icon } from '@chakra-ui/icons';
-import { ColorModeSwitcher } from './ColorModeSwitcher';
+} from '@chakra-ui/react'
+import { Search2Icon } from '@chakra-ui/icons'
+import { ColorModeSwitcher } from './ColorModeSwitcher'
 
-export const App = () => (
+export const App: FC = () => (
   <ChakraProvider theme={theme}>
     <Box textAlign="center">
       <Grid minH="100vh" p={3} gridTemplateRows="auto auto 1fr">
@@ -29,4 +30,4 @@ export const App = () => (
       </Grid>
     </Box>
   </ChakraProvider>
-);
+)
