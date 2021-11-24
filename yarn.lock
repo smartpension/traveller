@@ -4327,7 +4327,7 @@ apollo-server-caching@^3.3.0:
   dependencies:
     lru-cache "^6.0.0"
 
-apollo-server-core@^3.5.0:
+apollo-server-core@3.5.0, apollo-server-core@^3.5.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/apollo-server-core/-/apollo-server-core-3.5.0.tgz#09d05554e6aed9fed296d7bff99e2b8ca31f49eb"
   integrity sha512-c3wEnPSnzvWvYvRJq1B+yIpa+vBvm0kq0tvD4j/IOw/F1s3sadu43Xr4FiLw++UfeLyh3aS5Wk68hjvrW1ceiQ==
