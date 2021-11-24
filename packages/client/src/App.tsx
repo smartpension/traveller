@@ -1,38 +1,32 @@
-import * as React from "react"
+import * as React from 'react';
 import {
   ChakraProvider,
   Box,
-  Text,
-  Link,
-  VStack,
-  Code,
+  Container,
   Grid,
+  InputRightElement,
+  Input,
+  Heading,
   theme,
-} from "@chakra-ui/react"
-import { ColorModeSwitcher } from "./ColorModeSwitcher"
-import { Logo } from "./Logo"
+  InputGroup,
+  IconButton,
+} from '@chakra-ui/react';
+import { Search2Icon } from '@chakra-ui/icons';
+import { ColorModeSwitcher } from './ColorModeSwitcher';
 
 export const App = () => (
   <ChakraProvider theme={theme}>
-    <Box textAlign="center" fontSize="xl">
-      <Grid minH="100vh" p={3}>
+    <Box textAlign="center">
+      <Grid minH="100vh" p={3} gridTemplateRows="auto auto 1fr">
         <ColorModeSwitcher justifySelf="flex-end" />
-        <VStack spacing={8}>
-          <Logo h="40vmin" pointerEvents="none" />
-          <Text>
-            Edit <Code fontSize="xl">src/App.tsx</Code> and save to reload.
-          </Text>
-          <Link
-            color="teal.500"
-            href="https://chakra-ui.com"
-            fontSize="2xl"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn Chakra
-          </Link>
-        </VStack>
+        <Heading as="h1">Smart traveler</Heading>
+        <Container centerContent maxW="container.md" flexDir="row">
+          <InputGroup>
+            <Input />
+            <InputRightElement children={<IconButton aria-label="" icon={<Search2Icon />} />} />
+          </InputGroup>
+        </Container>
       </Grid>
     </Box>
   </ChakraProvider>
-)
+);
