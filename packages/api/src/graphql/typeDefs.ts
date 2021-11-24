@@ -14,10 +14,6 @@ export const typeDefs = gql`
   }
 
   type Mutation {
-    updateCity(
-      id: Int
-      visited: Boolean
-      wantToVisit: Boolean
-    ): City
+    updateCity(id: Int, visited: Boolean, wantToVisit: Boolean): City
   }
-`;
+`

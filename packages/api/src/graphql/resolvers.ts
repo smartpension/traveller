@@ -1,4 +1,5 @@
-import { cities, City } from '../data/cities'
+import type { City } from '../data/cities'
+import { cities } from '../data/cities'
 import { isDefined } from '../utils/isDefined'
 
 const idFilter = (id: number, city: City) => {
@@ -14,14 +15,14 @@ const countryFilter = (country: string, city: City) => {
 }
 
 const visitedFilter = (visited: boolean, city: City) => {
- return isDefined(visited) ? city.visited === visited : true
+  return isDefined(visited) ? city.visited === visited : true
 }
 
 const wantToVisitFilter = (wantToVisit: boolean, city: City) => {
- return isDefined(wantToVisit) ? city.wantToVisit === wantToVisit : true
+  return isDefined(wantToVisit) ? city.wantToVisit === wantToVisit : true
 }
 
-type UpdateCityArgs = Partial<Pick<City, "visited" | "wantToVisit">> & Pick<City, "id">
+type UpdateCityArgs = Partial<Pick<City, 'visited' | 'wantToVisit'>> & Pick<City, 'id'>
 
 export const resolvers = {
   Query: {
@@ -50,6 +51,6 @@ export const resolvers = {
       isDefined(wantToVisit) && Object.assign(targetCity, { wantToVisit })
 
       return targetCity
-    }
+    },
   },
-};
+}
