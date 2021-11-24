@@ -1,0 +1,25 @@
+{
+  "name": "api",
+  "version": "0.1.0",
+  "description": "> TODO: description",
+  "author": "Sam De Maeyer <sam_demaeyer@hotmail.com>",
+  "homepage": "https://github.com/smartpension/traveler#readme",
+  "license": "ISC",
+  "main": "index.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smartpension/traveler.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/smartpension/traveler/issues"
+  },
+  "dependencies": {
+    "apollo-server": "^3.5.0",
+    "graphql": "^16.0.1",
+    "typescript": "^4.5.2",
+    "nodemon": "^2.0.15"
+  }
+}
