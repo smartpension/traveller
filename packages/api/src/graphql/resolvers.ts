@@ -1,7 +1,7 @@
 import type { City } from '../data/cities'
 import { cities } from '../data/cities'
 import { isDefined } from '../utils/isDefined'
-import * as citiesService from '../cities/service'
+import { citiesService } from '../cities/service'
 
 type UpdateCityArgs = Partial<Pick<City, 'visited' | 'wantToVisit'>> & Pick<City, 'id'>
 

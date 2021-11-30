@@ -23,7 +23,7 @@ const wantToVisitFilter = (city: City, wantToVisit?: boolean | string) => {
   return isDefined(wantToVisit) ? city.wantToVisit === convertToBoolean(wantToVisit) : true
 }
 
-export const getAll = ({ id, name, visited, wantToVisit, country }: Partial<City>): City[] => {
+const getAll = ({ id, name, visited, wantToVisit, country }: Partial<City>): City[] => {
   return cities.filter(city => {
     return (
       idFilter(city, id) &&
@@ -33,4 +33,13 @@ export const getAll = ({ id, name, visited, wantToVisit, country }: Partial<City
       countryFilter(city, country)
     )
   })
+}
+
+const find = (id: string): City | undefined => {
+  return cities.find(city => id === city.id.toString())
+}
+
+export const citiesService = {
+  getAll,
+  find,
 }
