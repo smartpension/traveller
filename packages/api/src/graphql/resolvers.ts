@@ -1,4 +1,4 @@
-import type { City } from '../data/cities'
+import type { City } from '../cities/types'
 import { isDefined } from '../utils/isDefined'
 import { citiesService } from '../cities/service'
 

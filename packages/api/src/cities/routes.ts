@@ -1,6 +1,6 @@
 import type { Request } from 'express'
 import express from 'express'
-import type { City } from 'src/data/cities'
+import type { City } from './types'
 import { citiesService } from './service'
 
 export const citiesRouter = express.Router()

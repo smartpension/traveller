@@ -1,4 +1,4 @@
-import type { City } from '../data/cities'
+import type { City } from './types'
 import { cities } from '../data/cities'
 import { isDefined } from '../utils/isDefined'
 import { convertToBoolean } from '../utils/convertToBoolean'
