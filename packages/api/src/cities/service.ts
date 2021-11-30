@@ -18,17 +18,17 @@ const visitedFilter = (city: City, visited?: boolean | string) => {
   return isDefined(visited) ? city.visited === convertToBoolean(visited) : true
 }
 
-const wantToVisitFilter = (city: City, wantToVisit?: boolean | string) => {
-  return isDefined(wantToVisit) ? city.wantToVisit === convertToBoolean(wantToVisit) : true
+const wishlistFilter = (city: City, wishlist?: boolean | string) => {
+  return isDefined(wishlist) ? city.wishlist === convertToBoolean(wishlist) : true
 }
 
-const getAll = ({ id, name, visited, wantToVisit, country }: Partial<City>): City[] => {
+const getAll = ({ id, name, visited, wishlist, country }: Partial<City>): City[] => {
   return cities.filter(city => {
     return (
       idFilter(city, id) &&
       nameFilter(city, name) &&
       visitedFilter(city, visited) &&
-      wantToVisitFilter(city, wantToVisit) &&
+      wishlistFilter(city, wishlist) &&
       countryFilter(city, country)
     )
   })

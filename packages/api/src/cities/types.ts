@@ -3,5 +3,9 @@ export type City = {
   name: string
   country: string
   visited: boolean
-  wantToVisit: boolean
+  wishlist: boolean
+}
+
+export type CitiesFilter = {
+  filter: City
 }
