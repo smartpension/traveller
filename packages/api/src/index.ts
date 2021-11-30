@@ -7,6 +7,7 @@ import { resolvers } from './graphql/resolvers'
 import { citiesRouter } from './cities/routes'
 
 async function startApolloServer(typeDefs, resolvers) {
+  const PORT = 4000
   const app = express()
   const httpServer = http.createServer(app)
 
@@ -25,8 +26,9 @@ async function startApolloServer(typeDefs, resolvers) {
   app.use(express.json())
   app.use('/rest/cities', citiesRouter)
 
-  await new Promise<void>(resolve => httpServer.listen({ port: 4000 }, resolve))
-  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
+  await new Promise<void>(resolve => httpServer.listen({ port: PORT }, resolve))
+  console.log(`🚀 GraphQL Server ready at http://localhost:${PORT}${server.graphqlPath}`)
+  console.log(`🚀 REST Server ready at http://localhost:${PORT}/rest`)
 }
 
 startApolloServer(typeDefs, resolvers)
