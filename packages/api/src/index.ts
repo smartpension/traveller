@@ -1,9 +1,12 @@
 import { ApolloServer } from 'apollo-server-express'
 import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core'
+import type { Request } from 'express'
 import express from 'express'
 import http from 'http'
 import { typeDefs } from './graphql/typeDefs'
 import { resolvers } from './graphql/resolvers'
+import * as citiesService from './cities/service'
+import type { City } from './data/cities'
 
 async function startApolloServer(typeDefs, resolvers) {
   const app = express()
@@ -19,6 +22,10 @@ async function startApolloServer(typeDefs, resolvers) {
   server.applyMiddleware({
     app,
     path: '/graphql',
+  })
+
+  app.get('/rest/cities', (req: Request<unknown, unknown, unknown, Partial<City>>, res) => {
+    res.send(citiesService.getAll({}))
   })
 
   // Modified server startup
