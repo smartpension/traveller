@@ -26,7 +26,7 @@ const fonts = {
 export const App: FC = () => (
   <ChakraProvider theme={extendTheme({ fonts })}>
     <Box textAlign="center">
-      <Grid minH="100vh" p={3} gridTemplateRows="auto auto 1fr">
+      <Grid minH="100vh" gridTemplateRows="auto auto 1fr">
         <TopBar />
         <Heading as="h1">Smart traveler</Heading>
         <Container centerContent maxW="container.md" flexDir="row">

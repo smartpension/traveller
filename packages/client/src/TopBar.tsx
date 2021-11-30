@@ -11,6 +11,7 @@ export const TopBar: React.FC = () => {
       alignItems="center"
       borderBottom="1px solid #E8E8E8"
       marginBottom="3rem"
+      padding="0.5rem"
     >
       <Image src={image} alt="smart logo" maxHeight="7" />
       <ColorModeSwitcher justifySelf="flex-end" />
