@@ -7,6 +7,7 @@ type UpdateCityArgs = Partial<Pick<City, 'visited' | 'wantToVisit'>> & Pick<City
 
 export const resolvers = {
   Query: {
+    // @TODO: add single city resolver
     cities: (_: undefined, { id, country, name, visited, wantToVisit }: City): City[] => {
       return citiesService.getAll({ id, country, name, visited, wantToVisit })
     },

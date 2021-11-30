@@ -35,11 +35,20 @@ const getAll = ({ id, name, visited, wantToVisit, country }: Partial<City>): Cit
   })
 }
 
-const find = (id: string): City | undefined => {
-  return cities.find(city => id === city.id.toString())
+const get = (id: string | number): City | undefined => {
+  return cities.find(city => id.toString() === city.id.toString())
+}
+
+export const update = (id: string | number, updatedFields: Partial<City>): City | undefined => {
+  const city = get(id)
+  if (!city) return
+
+  const updatedCity = Object.assign(city, updatedFields)
+  return updatedCity
 }
 
 export const citiesService = {
   getAll,
-  find,
+  get,
+  update,
 }

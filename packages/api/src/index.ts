@@ -24,15 +24,25 @@ async function startApolloServer(typeDefs, resolvers) {
     path: '/graphql',
   })
 
+  app.use(express.json())
+
   app.get('/rest/cities', (req: Request<unknown, unknown, unknown, Partial<City>>, res) => {
     res.send(citiesService.getAll(req.query))
   })
 
   app.get('/rest/cities/:cityId', (req, res) => {
-    const city = citiesService.find(req.params.cityId)
+    const city = citiesService.get(req.params.cityId)
     if (city) return res.send(city)
 
-    // @TODO: would be nice to have some better error handling instead of inline object like this
+    // @TODO: add better error handling instead of inline objects
+    res.status(404).send({ status: 404, message: 'Not found' })
+  })
+
+  app.put('/rest/cities/:cityId', (req, res) => {
+    const updatedCity = citiesService.update(req.params.cityId, req.body)
+    if (updatedCity) return res.send(updatedCity)
+
+    // @TODO: add better error handling instead of inline objects
     res.status(404).send({ status: 404, message: 'Not found' })
   })
 
