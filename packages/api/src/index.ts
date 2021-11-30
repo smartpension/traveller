@@ -7,6 +7,7 @@ import { resolvers } from './graphql/resolvers'
 import { citiesRouter } from './cities/routes'
 import listAllEndpoints from 'express-list-endpoints'
 import { errorHandler } from './middleware/errorHandler'
+import cors from 'cors'
 
 async function startApolloServer(typeDefs, resolvers) {
   const PORT = 4000
@@ -25,6 +26,7 @@ async function startApolloServer(typeDefs, resolvers) {
     path: '/graphql',
   })
 
+  app.use(cors())
   app.use(express.json())
   app.use('/rest/cities', citiesRouter)
   app.use('/rest', (_, res) => {
