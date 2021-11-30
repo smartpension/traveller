@@ -25,7 +25,7 @@ async function startApolloServer(typeDefs, resolvers) {
   })
 
   app.get('/rest/cities', (req: Request<unknown, unknown, unknown, Partial<City>>, res) => {
-    res.send(citiesService.getAll({}))
+    res.send(citiesService.getAll(req.query))
   })
 
   // Modified server startup
