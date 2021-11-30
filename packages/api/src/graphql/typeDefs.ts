@@ -6,14 +6,23 @@ export const typeDefs = gql`
     name: String
     country: String
     visited: Boolean
-    wantToVisit: Boolean
+    wishlist: Boolean
+  }
+
+  input CitiesFilters {
+    id: Int
+    name: String
+    country: String
+    visited: Boolean
+    wishlist: Boolean
   }
 
   type Query {
-    cities(name: String, country: String, visited: Boolean, wantToVisit: Boolean, id: Int): [City]
+    cities(filter: CitiesFilters): [City]
+    city(id: Int): City
   }
 
   type Mutation {
-    updateCity(id: Int, visited: Boolean, wantToVisit: Boolean): City
+    updateCity(id: Int, visited: Boolean, wishlist: Boolean): City
   }
 `

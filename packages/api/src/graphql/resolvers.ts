@@ -10,6 +10,11 @@ export const resolvers = {
     cities: (_: undefined, { id, country, name, visited, wantToVisit }: City): City[] => {
       return citiesService.getAll({ id, country, name, visited, wantToVisit })
     },
+    city: (_: undefined, { id }: City): City | undefined => {
+      return cities.find(city => {
+        return idMatcher(id, city)
+      })
+    },
   },
 
   Mutation: {
