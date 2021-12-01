@@ -1,19 +1,14 @@
-import type { City, CitiesArgs } from '../cities/types'
+import type { City, CitiesArgs, CityArgs, UpdateCityArgs } from '../cities/types'
 import { citiesService } from '../cities/service'
 import { isDefined } from '../utils'
 import { HttpQueryError } from 'apollo-server-core'
-
-type UpdateCityArgs = { input: Partial<Pick<City, 'visited' | 'wishlist'>> & Pick<City, 'id'> }
-type CityArgs = Pick<City, 'id'>
 
 export const resolvers = {
   Query: {
     cities: (_: undefined, { filter, limit, offset }: CitiesArgs): City[] => {
       const { id, country, name, visited, wishlist } = filter ?? {}
 
-      const cities = citiesService.getAll({ id, country, name, visited, wishlist })
-
-      return citiesService.paginate(cities, limit, offset)
+      return citiesService.getAll({ id, country, name, visited, wishlist }, offset, limit)
     },
 
     city: (_: undefined, { id }: CityArgs): City => {

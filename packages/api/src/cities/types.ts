@@ -7,7 +7,12 @@ export type City = {
 }
 
 export type CitiesArgs = {
-  filter: City
-  limit: number
-  offset: number
+  filter?: Partial<City> & { id: string }
+  limit?: number
+  offset?: number
 }
+
+export type CitiesParams = Partial<Record<keyof City, string>> & { limit?: string; offset?: string }
+
+export type UpdateCityArgs = { input: Partial<Pick<City, 'visited' | 'wishlist'>> & Pick<City, 'id'> }
+export type CityArgs = Pick<City, 'id'>

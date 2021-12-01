@@ -22,8 +22,20 @@ const wishlistFilter = (city: City, wishlist?: boolean | string) => {
   return isDefined(wishlist) ? city.wishlist === convertToBoolean(wishlist) : true
 }
 
-const getAll = ({ id, name, visited, wishlist, country }: Partial<City>): City[] => {
-  return cities.filter(city => {
+const paginate = (cities: City[], limit: number | undefined, offset: number): City[] => {
+  if (!limit && offset === 0) return cities
+
+  const end = limit ? limit + offset : -1
+
+  return cities.slice(offset, end)
+}
+
+const getAll = (
+  { id, name, visited, wishlist, country }: Partial<City>,
+  limit: number | undefined,
+  offset = 0
+): City[] => {
+  const data = cities.filter(city => {
     return (
       idFilter(city, id) &&
       nameFilter(city, name) &&
@@ -32,18 +44,12 @@ const getAll = ({ id, name, visited, wishlist, country }: Partial<City>): City[]
       countryFilter(city, country)
     )
   })
+
+  return paginate(data, limit, offset)
 }
 
 const get = (id: string | number): City | undefined => {
   return cities.find(city => id.toString() === city.id.toString())
-}
-
-const paginate = (cities: City[], limit: number | undefined, offset = 0): City[] => {
-  if (!limit && offset === 0) return cities
-
-  const end = limit ? limit + offset : -1
-
-  return cities.slice(offset, end)
 }
 
 export const update = (id: string | number, updatedFields: Partial<City>): City | undefined => {
@@ -58,5 +64,4 @@ export const citiesService = {
   getAll,
   get,
   update,
-  paginate,
 }
