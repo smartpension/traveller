@@ -1,6 +1,6 @@
 import type { City } from './types'
 import { cities } from '../data/cities'
-import { isDefined } from '../utils'
+import { isDefined, paginate } from '../utils'
 
 const idFilter = (city: City, id?: number) => {
   return id ? city.id === id : true
@@ -20,14 +20,6 @@ const visitedFilter = (city: City, visited?: boolean | string) => {
 
 const wishlistFilter = (city: City, wishlist?: boolean | string) => {
   return isDefined(wishlist) ? city.wishlist === wishlist : true
-}
-
-const paginate = (cities: City[], limit: number | undefined, offset: number): City[] => {
-  if (!limit && offset === 0) return cities
-
-  const end = limit ? limit + offset : -1
-
-  return cities.slice(offset, end)
 }
 
 const getAll = (
