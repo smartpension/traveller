@@ -1,6 +1,6 @@
 import type { City } from '../cities/types'
-import { isDefined } from '../utils/isDefined'
 import { citiesService } from '../cities/service'
+import { isDefined } from '../utils'
 
 type UpdateCityArgs = Partial<Pick<City, 'visited' | 'wantToVisit'>> & Pick<City, 'id'>
 

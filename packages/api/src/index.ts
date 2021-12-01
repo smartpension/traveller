@@ -6,7 +6,7 @@ import { typeDefs } from './graphql/typeDefs'
 import { resolvers } from './graphql/resolvers'
 import { citiesRouter } from './cities/routes'
 import { errorHandler } from './middleware/errorHandler'
-import { getEndpointInfoHTML } from './utils/getEndpointInfo'
+import { getEndpointInfoHTML } from './utils'
 import cors from 'cors'
 
 async function startApolloServer(typeDefs, resolvers) {

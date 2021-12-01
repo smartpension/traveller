@@ -1,7 +1,6 @@
 import type { City } from './types'
 import { cities } from '../data/cities'
-import { isDefined } from '../utils/isDefined'
-import { convertToBoolean } from '../utils/convertToBoolean'
+import { isDefined, convertToBoolean } from '../utils'
 
 const idFilter = (city: City, id?: number) => {
   return id ? city.id === id : true
