@@ -1,1 +1,1 @@
-export const isDefined = (i: boolean | undefined): boolean => i !== undefined
+export const isDefined = (i: boolean | string | undefined): i is boolean | string => i !== undefined

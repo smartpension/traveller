@@ -1,10 +1,4 @@
-export type City = {
-  id: number
-  name: string
-  country: string
-  visited: boolean
-  wantToVisit: boolean
-}
+import type { City } from '../cities/types'
 
 export const cities: City[] = [
   {

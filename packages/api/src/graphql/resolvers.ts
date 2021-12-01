@@ -1,56 +1,26 @@
-import type { City } from '../data/cities'
-import { cities } from '../data/cities'
-import { isDefined } from '../utils/isDefined'
-
-const idFilter = (id: number, city: City) => {
-  return id ? city.id === id : true
-}
-
-const nameFilter = (name: string, city: City) => {
-  return name ? city.name.toLowerCase().includes(name.toLowerCase()) : true
-}
-
-const countryFilter = (country: string, city: City) => {
-  return country ? city.country.toLowerCase().includes(country.toLowerCase()) : true
-}
-
-const visitedFilter = (visited: boolean, city: City) => {
-  return isDefined(visited) ? city.visited === visited : true
-}
-
-const wantToVisitFilter = (wantToVisit: boolean, city: City) => {
-  return isDefined(wantToVisit) ? city.wantToVisit === wantToVisit : true
-}
+import type { City } from '../cities/types'
+import { citiesService } from '../cities/service'
+import { isDefined } from '../utils'
 
 type UpdateCityArgs = Partial<Pick<City, 'visited' | 'wantToVisit'>> & Pick<City, 'id'>
 
 export const resolvers = {
   Query: {
+    // @TODO: add single city resolver
     cities: (_: undefined, { id, country, name, visited, wantToVisit }: City): City[] => {
-      return cities.filter(city => {
-        return (
-          idFilter(id, city) &&
-          nameFilter(name, city) &&
-          visitedFilter(visited, city) &&
-          wantToVisitFilter(wantToVisit, city) &&
-          countryFilter(country, city)
-        )
-      })
+      return citiesService.getAll({ id, country, name, visited, wantToVisit })
     },
   },
 
   Mutation: {
     updateCity: (_, { id, visited, wantToVisit }: UpdateCityArgs): City => {
-      const targetCity = cities.find(city => city.id === id)
+      const fieldsToUpdate: Partial<City> = isDefined(visited) ? { visited } : {}
+      isDefined(wantToVisit) && Object.assign(fieldsToUpdate, { wantToVisit })
+      const updatedCity = citiesService.update(id, fieldsToUpdate)
 
-      if (!targetCity) {
-        throw new Error(`Cannot find a city of id: ${id}`)
-      }
+      if (!updatedCity) throw new Error(`Cannot find a city of id: ${id}`)
 
-      isDefined(visited) && Object.assign(targetCity, { visited })
-      isDefined(wantToVisit) && Object.assign(targetCity, { wantToVisit })
-
-      return targetCity
+      return updatedCity
     },
   },
 }
