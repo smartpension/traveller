@@ -5,8 +5,8 @@ import http from 'http'
 import { typeDefs } from './graphql/typeDefs'
 import { resolvers } from './graphql/resolvers'
 import { citiesRouter } from './cities/routes'
-import listAllEndpoints from 'express-list-endpoints'
 import { errorHandler } from './middleware/errorHandler'
+import { getEndpointInfoHTML } from './utils/getEndpointInfo'
 import cors from 'cors'
 
 async function startApolloServer(typeDefs, resolvers) {
@@ -30,7 +30,7 @@ async function startApolloServer(typeDefs, resolvers) {
   app.use(express.json())
   app.use('/rest/cities', citiesRouter)
   app.use('/rest', (_, res) => {
-    res.json(listAllEndpoints(app))
+    res.send(getEndpointInfoHTML(app))
   })
   app.use(errorHandler)
 
