@@ -8,7 +8,7 @@ export const resolvers = {
     cities: (_: undefined, { filter, limit, offset }: CitiesArgs): City[] => {
       const { id, country, name, visited, wishlist } = filter ?? {}
 
-      return citiesService.getAll({ id, country, name, visited, wishlist }, offset, limit)
+      return citiesService.getAll({ id, country, name, visited, wishlist }, limit, offset)
     },
 
     city: (_: undefined, { id }: CityArgs): City => {
