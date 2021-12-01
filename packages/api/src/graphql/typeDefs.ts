@@ -17,12 +17,18 @@ export const typeDefs = gql`
     wishlist: Boolean
   }
 
+  input CitiesMutationInput {
+    id: Int
+    visited: Boolean
+    wishlist: Boolean
+  }
+
   type Query {
     cities(filter: CitiesFilters): [City]
     city(id: Int): City
   }
 
   type Mutation {
-    updateCity(id: Int, visited: Boolean, wishlist: Boolean): City
+    updateCity(input: CitiesMutationInput): City
   }
 `

@@ -6,6 +6,6 @@ export type City = {
   wishlist: boolean
 }
 
-export type CitiesFilter = {
+export type CitiesArgs = {
   filter: City
 }
