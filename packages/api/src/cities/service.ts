@@ -38,6 +38,14 @@ const get = (id: string | number): City | undefined => {
   return cities.find(city => id.toString() === city.id.toString())
 }
 
+const paginate = (cities: City[], limit: number | undefined, offset = 0): City[] => {
+  if (!limit && offset === 0) return cities
+
+  const end = limit ? limit + offset : -1
+
+  return cities.slice(offset, end)
+}
+
 export const update = (id: string | number, updatedFields: Partial<City>): City | undefined => {
   const city = get(id)
   if (!city) return
@@ -50,4 +58,5 @@ export const citiesService = {
   getAll,
   get,
   update,
+  paginate,
 }

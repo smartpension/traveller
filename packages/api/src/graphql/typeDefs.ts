@@ -24,8 +24,8 @@ export const typeDefs = gql`
   }
 
   type Query {
-    cities(filter: CitiesFilters): [City]
-    city(id: Int): City
+    cities(filter: CitiesFilters, limit: Int, offset: Int): [City]
+    city(id: Int!): City
   }
 
   type Mutation {

@@ -8,10 +8,12 @@ type CityArgs = Pick<City, 'id'>
 
 export const resolvers = {
   Query: {
-    cities: (_: undefined, args: CitiesArgs): City[] => {
-      const { id, country, name, visited, wishlist } = args.filter
+    cities: (_: undefined, { filter, limit, offset }: CitiesArgs): City[] => {
+      const { id, country, name, visited, wishlist } = filter ?? {}
 
-      return citiesService.getAll({ id, country, name, visited, wishlist })
+      const cities = citiesService.getAll({ id, country, name, visited, wishlist })
+
+      return citiesService.paginate(cities, limit, offset)
     },
 
     city: (_: undefined, { id }: CityArgs): City => {

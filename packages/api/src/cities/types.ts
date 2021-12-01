@@ -8,4 +8,6 @@ export type City = {
 
 export type CitiesArgs = {
   filter: City
+  limit: number
+  offset: number
 }
