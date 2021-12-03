@@ -9,7 +9,7 @@ export const citiesRouter = express.Router()
 citiesRouter.get('/', (req: Request<unknown, unknown, unknown, CitiesParams>, res) => {
   const { offset, limit, visited, wishlist, id, ...restParams } = req.query
 
-  const data = citiesService.getAll(
+  const { cities, total } = citiesService.getAll(
     {
       visited: paramToBoolean(visited),
       wishlist: paramToBoolean(wishlist),
@@ -20,7 +20,7 @@ citiesRouter.get('/', (req: Request<unknown, unknown, unknown, CitiesParams>, re
     paramToNumber(offset)
   )
 
-  res.send(data)
+  res.send({ cities, total })
 })
 
 citiesRouter.get('/:cityId', (req, res) => {

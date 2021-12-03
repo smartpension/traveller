@@ -23,8 +23,13 @@ export const typeDefs = gql`
     wishlist: Boolean
   }
 
+  type CitiesResult {
+    cities: [City]
+    total: Int
+  }
+
   type Query {
-    cities(filter: CitiesFilters, limit: Int, offset: Int): [City]
+    cities(filter: CitiesFilters, limit: Int, offset: Int): CitiesResult
     city(id: Int!): City
   }
 

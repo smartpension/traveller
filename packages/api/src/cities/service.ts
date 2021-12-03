@@ -1,4 +1,4 @@
-import type { City } from './types'
+import type { CitiesResult, City } from './types'
 import { cities } from '../data/cities'
 import { isDefined, paginate } from '../utils'
 
@@ -26,7 +26,7 @@ const getAll = (
   { id, name, visited, wishlist, country }: Partial<City>,
   limit: number | undefined,
   offset = 0
-): City[] => {
+): CitiesResult => {
   const data = cities.filter(city => {
     return (
       idFilter(city, id) &&
@@ -37,7 +37,10 @@ const getAll = (
     )
   })
 
-  return paginate(data, limit, offset)
+  return {
+    total: data.length,
+    cities: paginate(data, limit, offset),
+  }
 }
 
 const get = (id: string | number): City | undefined => {
