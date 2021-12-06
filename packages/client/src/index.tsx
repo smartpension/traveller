@@ -1,10 +1,11 @@
-import { ColorModeScript } from '@chakra-ui/react'
 import * as React from 'react'
 import ReactDOM from 'react-dom'
+import { BrowserRouter } from 'react-router-dom'
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
+import { ColorModeScript } from '@chakra-ui/react'
 import { App } from './App'
 import { reportWebVitals } from './reportWebVitals'
 import * as serviceWorker from './serviceWorker'
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql',
@@ -13,10 +14,12 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <React.StrictMode>
-    <ApolloProvider client={client}>
-      <ColorModeScript />
-      <App />
-    </ApolloProvider>
+    <BrowserRouter>
+      <ApolloProvider client={client}>
+        <ColorModeScript />
+        <App />
+      </ApolloProvider>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 )

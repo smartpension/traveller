@@ -1,19 +1,11 @@
 import React from 'react'
 import type { FC } from 'react'
-import {
-  ChakraProvider,
-  Box,
-  Container,
-  Grid,
-  InputRightElement,
-  Input,
-  Heading,
-  InputGroup,
-  IconButton,
-  extendTheme,
-} from '@chakra-ui/react'
-import { Search2Icon } from '@chakra-ui/icons'
+import { ChakraProvider, Box, extendTheme } from '@chakra-ui/react'
+import { Route, Routes } from 'react-router-dom'
 import { TopBar } from './TopBar'
+import { Home } from './Home'
+import { WishList } from './WishList'
+import { Visited } from './Visited'
 
 const fonts = {
   heading:
@@ -25,17 +17,13 @@ const fonts = {
 
 export const App: FC = () => (
   <ChakraProvider theme={extendTheme({ fonts })}>
+    <TopBar />
     <Box textAlign="center">
-      <Grid minH="100vh" gridTemplateRows="auto auto 1fr">
-        <TopBar />
-        <Heading as="h1">Smart traveler</Heading>
-        <Container centerContent maxW="container.md" flexDir="row">
-          <InputGroup>
-            <Input />
-            <InputRightElement children={<IconButton aria-label="" icon={<Search2Icon />} />} />
-          </InputGroup>
-        </Container>
-      </Grid>
+      <Routes>
+        <Route index element={<Home />} />
+        <Route path="wish-list" element={<WishList />} />
+        <Route path="visited" element={<Visited />} />
+      </Routes>
     </Box>
   </ChakraProvider>
 )
