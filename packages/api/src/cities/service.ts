@@ -1,6 +1,6 @@
-import type { City } from './types'
+import type { CitiesResult, City } from './types'
 import { cities } from '../data/cities'
-import { isDefined, convertToBoolean } from '../utils'
+import { isDefined, paginate } from '../utils'
 
 const idFilter = (city: City, id?: number) => {
   return id ? city.id === id : true
@@ -15,23 +15,32 @@ const countryFilter = (city: City, country?: string) => {
 }
 
 const visitedFilter = (city: City, visited?: boolean | string) => {
-  return isDefined(visited) ? city.visited === convertToBoolean(visited) : true
+  return isDefined(visited) ? city.visited === visited : true
 }
 
-const wantToVisitFilter = (city: City, wantToVisit?: boolean | string) => {
-  return isDefined(wantToVisit) ? city.wantToVisit === convertToBoolean(wantToVisit) : true
+const wishlistFilter = (city: City, wishlist?: boolean | string) => {
+  return isDefined(wishlist) ? city.wishlist === wishlist : true
 }
 
-const getAll = ({ id, name, visited, wantToVisit, country }: Partial<City>): City[] => {
-  return cities.filter(city => {
+const getAll = (
+  { id, name, visited, wishlist, country }: Partial<City>,
+  limit: number | undefined,
+  offset = 0
+): CitiesResult => {
+  const data = cities.filter(city => {
     return (
       idFilter(city, id) &&
       nameFilter(city, name) &&
       visitedFilter(city, visited) &&
-      wantToVisitFilter(city, wantToVisit) &&
+      wishlistFilter(city, wishlist) &&
       countryFilter(city, country)
     )
   })
+
+  return {
+    total: data.length,
+    cities: paginate(data, limit, offset),
+  }
 }
 
 const get = (id: string | number): City | undefined => {
