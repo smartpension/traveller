@@ -6,7 +6,7 @@ import { App } from './App'
 describe('<App /> component', () => {
   it('renders the Header content', () => {
     render(<App />)
-    const HeadingComponent = screen.getByText(/^Smart traveler$/i)
+    const HeadingComponent = screen.getByText(/^Smart traveller$/i)
     expect(HeadingComponent).toBeInTheDocument()
   })
 })
