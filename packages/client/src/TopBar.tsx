@@ -30,7 +30,7 @@ export const TopBar: FC = () => {
         </ChakraLink>
 
         <ChakraLink as={Link} to="wish-list">
-          Wish List
+          Wish list
         </ChakraLink>
       </HStack>
 
