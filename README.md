@@ -29,9 +29,9 @@ After running the client you will find a home page with an input field that is c
 
 We have provided a few packages that will help you in your solution:
 
-- If you choose to use GraphQL we have added [Apollo Client](https://www.apollographql.com/docs/react/).
-- For testing, we have provided [Jest](https://jestjs.io/)/[React Testing Libary](https://testing-library.com/docs/react-testing-library/intro/).
-- For styling, you will find the component library [https://chakra-ui.com/](Chakra UI).
+- If you choose to use GraphQL we have added [Apollo Client](https://www.apollographql.com/docs/react).
+- For testing, we have provided [Jest](https://jestjs.io)/[React Testing Libary](https://testing-library.com/docs/react-testing-library/intro).
+- For styling, you will find the component library [Chakra UI](https://chakra-ui.com).
 
 ## What we're looking for
 
