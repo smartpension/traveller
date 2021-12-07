@@ -2,16 +2,18 @@ import { ApolloServer } from 'apollo-server-express'
 import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core'
 import express from 'express'
 import http from 'http'
+import swaggerUi from 'swagger-ui-express'
+import swaggerFile from './swagger/output.json'
+import { endpoints } from './swagger'
 import { typeDefs } from './graphql/typeDefs'
 import { resolvers } from './graphql/resolvers'
-import { citiesRouter } from './cities/routes'
 import { errorHandler } from './middleware/errorHandler'
-import { getEndpointInfoHTML } from './utils'
 import cors from 'cors'
+
+export const app = express()
 
 async function startApolloServer(typeDefs, resolvers) {
   const PORT = 4000
-  const app = express()
   const httpServer = http.createServer(app)
 
   const server = new ApolloServer({
@@ -28,10 +30,8 @@ async function startApolloServer(typeDefs, resolvers) {
 
   app.use(cors())
   app.use(express.json())
-  app.use('/rest/cities', citiesRouter)
-  app.use('/rest', (_, res) => {
-    res.send(getEndpointInfoHTML(app))
-  })
+  endpoints()
+  app.use('/rest', swaggerUi.serve, swaggerUi.setup(swaggerFile))
   app.use(errorHandler)
 
   await new Promise<void>(resolve => httpServer.listen({ port: PORT }, resolve))

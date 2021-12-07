@@ -11,8 +11,8 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "types": ["node"],
-    "baseUrl": ".",
+    "baseUrl": "."
   },
-  "include": ["src/*.ts", "src/**/*.ts"],
+  "include": ["src/*.ts", "src/**/*.ts", "bin/swagger.ts"],
   "exclude": ["node_modules", "build"]
 }

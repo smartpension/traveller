@@ -13,7 +13,8 @@
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1",
     "dev": "NODE_ENV=development nodemon",
-    "start": "tsc && node build/index.js"
+    "start": "tsc && node build/index.js",
+    "start:gendoc": "tsc && node build/swagger/autogen.js"
   },
   "bugs": {
     "url": "https://github.com/smartpension/traveller/issues"
@@ -24,9 +25,10 @@
     "apollo-server-express": "^3.5.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "express-list-endpoints": "^6.0.0",
     "graphql": "^16.0.1",
     "nodemon": "^2.0.15",
+    "swagger-autogen": "^2.15.0",
+    "swagger-ui-express": "^4.2.0",
     "typescript": "^4.5.2"
   }
 }

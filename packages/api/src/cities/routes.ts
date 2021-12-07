@@ -7,14 +7,15 @@ import { paramToNumber, paramToBoolean } from '../utils'
 export const citiesRouter = express.Router()
 
 citiesRouter.get('/', (req: Request<unknown, unknown, unknown, CitiesParams>, res) => {
-  const { offset, limit, visited, wishlist, id, ...restParams } = req.query
+  const { offset, limit, visited, wishlist, id, name, country } = req.query
 
   const { cities, total } = citiesService.getAll(
     {
       visited: paramToBoolean(visited),
       wishlist: paramToBoolean(wishlist),
       id: paramToNumber(id),
-      ...restParams,
+      name,
+      country,
     },
     paramToNumber(limit),
     paramToNumber(offset)
