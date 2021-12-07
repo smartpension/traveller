@@ -1,4 +1,4 @@
-## Traveller - Smart Take-Home Technical Test
+# Traveller - Smart Take-Home Technical Test
 
 ## Goals
 
