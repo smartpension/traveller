@@ -18,8 +18,6 @@ yarn start:all
 
 ### API
 
-We have provided both a REST API, scoped under `/rest`, as well as a GraphQL API located at `/graphql` . You can find the REST API routes in `packages/api/src/cities/routes.ts` and the GraphQL resolvers in `packages/api/src/graphql/resolvers.ts`. You are free to use whichever API you're comfortable with in your solution.
-
 We have provided both a REST and a GraphQL API, you are free to use whichever you are most comfortable with in your solution. You can find documention for these at the following URLS:
 
 - REST - [http://localhost:4000/rest](http://localhost:4000/rest)
