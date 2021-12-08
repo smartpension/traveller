@@ -47,7 +47,7 @@ const get = (id: string | number): City | undefined => {
   return cities.find(city => id.toString() === city.id.toString())
 }
 
-export const update = (id: string | number, updatedFields: Partial<City>): City | undefined => {
+export const update = (id: string | number, { id: _id, ...updatedFields }: Partial<City>): City | undefined => {
   const city = get(id)
   if (!city) return
 
