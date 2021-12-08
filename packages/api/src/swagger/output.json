@@ -55,7 +55,14 @@
             "type": "string"
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Cities"
+            },
+            "description": "OK"
+          }
+        }
       }
     },
     "/rest/cities/{cityId}": {
@@ -72,7 +79,10 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/City"
+            }
           }
         }
       },
@@ -85,6 +95,25 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Updated city object",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "visited": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "wishlist": {
+                  "type": "boolean",
+                  "example": true
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -95,5 +124,59 @@
       }
     }
   },
-  "definitions": {}
+  "definitions": {
+    "City": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "example": "London"
+        },
+        "country": {
+          "type": "string",
+          "example": "United Kingdom"
+        },
+        "visited": {
+          "type": "boolean",
+          "example": false
+        },
+        "wishlist": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
+    "Cities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "London"
+          },
+          "country": {
+            "type": "string",
+            "example": "United Kingdom"
+          },
+          "visited": {
+            "type": "boolean",
+            "example": false
+          },
+          "wishlist": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      }
+    }
+  }
 }

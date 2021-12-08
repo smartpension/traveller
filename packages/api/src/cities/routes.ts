@@ -7,6 +7,9 @@ import { paramToNumber, paramToBoolean } from '../utils'
 export const citiesRouter = express.Router()
 
 citiesRouter.get('/', (req: Request<unknown, unknown, unknown, CitiesParams>, res) => {
+  /*	#swagger.responses[200] = {
+    schema: { $ref: "#/definitions/Cities" }
+  } */
   const { offset, limit, visited, wishlist, id, name, country } = req.query
 
   const { cities, total } = citiesService.getAll(
@@ -25,6 +28,9 @@ citiesRouter.get('/', (req: Request<unknown, unknown, unknown, CitiesParams>, re
 })
 
 citiesRouter.get('/:cityId', (req, res) => {
+  /*	#swagger.responses[200] = {
+    schema: { $ref: "#/definitions/City" }
+  } */
   const city = citiesService.get(req.params.cityId)
   if (city) return res.send(city)
 
@@ -32,6 +38,16 @@ citiesRouter.get('/:cityId', (req, res) => {
 })
 
 citiesRouter.put('/:cityId', (req, res) => {
+  /*	#swagger.parameters['body'] = {
+    in: 'body',
+    description: 'City properties to be updated',
+    required: true,
+    schema: { 
+      visited: false,
+      wishlist: true,
+     }
+  } */
+
   const updatedCity = citiesService.update(req.params.cityId, req.body)
   if (updatedCity) return res.send(updatedCity)
 
