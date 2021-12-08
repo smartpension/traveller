@@ -99,7 +99,7 @@
           {
             "name": "body",
             "in": "body",
-            "description": "Updated city object",
+            "description": "City properties to be updated",
             "required": true,
             "schema": {
               "type": "object",
