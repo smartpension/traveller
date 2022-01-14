@@ -12,9 +12,9 @@
   },
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1",
-    "dev": "NODE_ENV=development nodemon",
-    "start": "tsc && node build/index.js",
-    "start:gendoc": "tsc && node build/swagger/autogen.js"
+    "dev": "NODE_ENV=development ./node_modules/.bin/nodemon",
+    "start": "./node_modules/.bin/tsc && node build/index.js",
+    "start:gendoc": "./node_modules/.bin/tsc && node build/swagger/autogen.js"
   },
   "bugs": {
     "url": "https://github.com/smartpension/traveller/issues"

@@ -10,8 +10,8 @@
     "start:client": "cd packages/client && yarn start",
     "start:api": "cd packages/api && yarn start",
     "dev:api": "cd packages/api && yarn dev",
-    "start:all": "concurrently \"yarn start:client\" \"yarn start:api\" --names CLIENT,API -c blue,green",
-    "dev:all": "concurrently \"yarn start:client\" \"yarn dev:api\" --names CLIENT,API -c blue,green"
+    "start:all": "./node_modules/.bin/concurrently \"yarn start:client\" \"yarn start:api\" --names CLIENT,API -c blue,green",
+    "dev:all": "./node_modules/.bin/concurrently \"yarn start:client\" \"yarn dev:api\" --names CLIENT,API -c blue,green"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.28.2",
