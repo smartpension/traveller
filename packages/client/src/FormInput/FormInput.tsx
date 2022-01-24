@@ -1,5 +1,5 @@
 import { Search2Icon } from '@chakra-ui/icons'
-import { Button, IconButton, Input, InputGroup, InputRightElement } from '@chakra-ui/react'
+import { IconButton, Input, InputGroup, InputRightElement } from '@chakra-ui/react'
 import React from 'react'
 
 type FormProps = {
