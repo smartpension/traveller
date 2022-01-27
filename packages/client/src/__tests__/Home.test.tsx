@@ -11,6 +11,7 @@ import {
   mockGraphQlFilteredWithRows,
   getGraphQlMutationError,
 } from '../__mocks__/graphql-mock'
+import { getGraphQlWishListMutation } from '../__mocks__/graphql-mock-wishlist'
 
 describe('Home component', () => {
   it('shows empty table when we have empty data', async () => {
@@ -132,7 +133,7 @@ describe('Home component', () => {
     expect(Alert).not.toBeNull()
   })
 
-  it('updates visted for city when clicked', async () => {
+  it('updates visited for city when clicked', async () => {
     const wasMutationCalled = jest.fn()
 
     render(
@@ -150,7 +151,34 @@ describe('Home component', () => {
     const checkBoxes = await waitFor(() => screen.getAllByRole('checkbox'))
 
     // get 2nd visited checkbox
-    const secondVisitor = checkBoxes[3]
+    const secondVisitor = checkBoxes[2]
+    fireEvent.click(secondVisitor)
+
+    // wait for it to call mutation
+    await waitFor(() => screen.getAllByRole('checkbox'))
+
+    expect(wasMutationCalled).toHaveBeenCalled()
+  })
+
+  it('updates wishlist for city when clicked', async () => {
+    const wasMutationCalled = jest.fn()
+
+    render(
+      <MockedProvider mocks={[mockGraphQlWithRows, getGraphQlWishListMutation(wasMutationCalled)]} addTypename={false}>
+        <Home />
+      </MockedProvider>
+    )
+
+    const SearchComponent = screen.getByRole('button')
+
+    // do a search
+    fireEvent.click(SearchComponent)
+
+    // wait for render
+    const checkBoxes = await waitFor(() => screen.getAllByRole('checkbox'))
+
+    // get 2nd visited checkbox
+    const secondVisitor = checkBoxes[1]
     fireEvent.click(secondVisitor)
 
     // wait for it to call mutation

@@ -58,7 +58,16 @@ export const Home: FC = () => {
     })
   }
 
-  console.log('+++++ ', error, mutationError)
+  const handleToggleWishList = (city: City) => {
+    mutateFunction({
+      variables: {
+        citiesInput: {
+          id: city.id,
+          wishlist: !city.wishlist,
+        },
+      },
+    })
+  }
 
   return (
     <VStack spacing="8">
@@ -92,10 +101,10 @@ export const Home: FC = () => {
                       <Td>{city.name}</Td>
                       <Td>{city.country}</Td>
                       <Td>
-                        <Checkbox isChecked={city.visited} role="checkbox" onChange={() => handleToggleVisited(city)} />
+                        <Checkbox isChecked={city.visited} onChange={() => handleToggleVisited(city)} />
                       </Td>
                       <Td>
-                        <Checkbox isChecked={city.wishlist} />
+                        <Checkbox isChecked={city.wishlist} onChange={() => handleToggleWishList(city)} />
                       </Td>
                     </Tr>
                   ))}

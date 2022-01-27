@@ -20,7 +20,10 @@ import { City, searchQuery } from './graph-helper'
 import { useQuery } from '@apollo/client'
 
 export const Visited: FC = () => {
-  const { loading, error, data } = useQuery(searchQuery, { variables: { filter: { visited: true } } })
+  const { loading, error, data } = useQuery(searchQuery, {
+    variables: { filter: { visited: true } },
+    pollInterval: 1000,
+  })
 
   const getCities = (): City[] => {
     if (data === null || data === undefined || data.cities === null || data.cities === undefined) {
@@ -59,7 +62,7 @@ export const Visited: FC = () => {
           <Alert status="error">
             <AlertIcon />
             <AlertTitle mr={2}>Error</AlertTitle>
-            <AlertDescription>Unable to perform the search</AlertDescription>
+            <AlertDescription>Unable to get the cities</AlertDescription>
           </Alert>
         )}
       </Container>

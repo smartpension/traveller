@@ -2,18 +2,18 @@ import React from 'react'
 import { fireEvent, screen, waitFor, within } from '@testing-library/react'
 import { render } from '../test-utils'
 import { MockedProvider } from '@apollo/client/testing'
-import { Visited } from '../Visited'
 import {
-  mockGraphQlVisitedEmpty,
-  mockGraphQlVisitedError,
-  mockGraphQlVisitedWithRows,
-} from '../__mocks__/graphql-mock-visited'
+  mockGraphQlWishListEmpty,
+  mockGraphQlWishListError,
+  mockGraphQlWishListWithRows,
+} from '../__mocks__/graphql-mock-wishlist'
+import { WishList } from '../WishList'
 
-describe('Visited component', () => {
+describe('WishList component', () => {
   it('shows empty table when we have empty data', async () => {
     render(
-      <MockedProvider mocks={[mockGraphQlVisitedEmpty]} addTypename={false}>
-        <Visited />
+      <MockedProvider mocks={[mockGraphQlWishListEmpty]} addTypename={false}>
+        <WishList />
       </MockedProvider>
     )
 
@@ -26,8 +26,8 @@ describe('Visited component', () => {
 
   it('shows spinner when waiting', () => {
     render(
-      <MockedProvider mocks={[mockGraphQlVisitedEmpty]} addTypename={false}>
-        <Visited />
+      <MockedProvider mocks={[mockGraphQlWishListEmpty]} addTypename={false}>
+        <WishList />
       </MockedProvider>
     )
 
@@ -38,8 +38,8 @@ describe('Visited component', () => {
 
   it('shows table with rows', async () => {
     render(
-      <MockedProvider mocks={[mockGraphQlVisitedWithRows]} addTypename={false}>
-        <Visited />
+      <MockedProvider mocks={[mockGraphQlWishListWithRows]} addTypename={false}>
+        <WishList />
       </MockedProvider>
     )
 
@@ -52,8 +52,8 @@ describe('Visited component', () => {
 
   it('shows alert when there is an error', async () => {
     render(
-      <MockedProvider mocks={[mockGraphQlVisitedError]} addTypename={false}>
-        <Visited />
+      <MockedProvider mocks={[mockGraphQlWishListError]} addTypename={false}>
+        <WishList />
       </MockedProvider>
     )
 
