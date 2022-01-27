@@ -20,16 +20,16 @@ import {
   AlertIcon,
   AlertTitle,
   AlertDescription,
-  CloseButton,
   Spinner,
 } from '@chakra-ui/react'
 import { Search2Icon } from '@chakra-ui/icons'
-import { useLazyQuery } from '@apollo/client'
-import { City, searchQuery } from './graph-helper'
+import { useLazyQuery, useMutation } from '@apollo/client'
+import { City, cityMutation, searchQuery } from './graph-helper'
 
 export const Home: FC = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [doSearch, { loading, error, data }] = useLazyQuery(searchQuery)
+  const [mutateFunction, { error: mutationError }] = useMutation(cityMutation)
 
   const getCities = (): City[] => {
     if (data === null || data === undefined || data.cities === null || data.cities === undefined) {
@@ -47,7 +47,18 @@ export const Home: FC = () => {
     doSearch({ variables: { filter: { name: searchTerm } } })
   }
 
-  console.log('}} ', loading)
+  const handleToggleVisited = (city: City) => {
+    mutateFunction({
+      variables: {
+        citiesInput: {
+          id: city.id,
+          visited: !city.visited,
+        },
+      },
+    })
+  }
+
+  console.log('+++++ ', error, mutationError)
 
   return (
     <VStack spacing="8">
@@ -55,7 +66,7 @@ export const Home: FC = () => {
       <Container maxW="container.md">
         <VStack spacing="30">
           {loading ? (
-            <Spinner data-test-id="spinner" />
+            <Spinner data-testid="spinner" />
           ) : (
             <>
               <InputGroup>
@@ -72,19 +83,19 @@ export const Home: FC = () => {
                     <Th>Name</Th>
                     <Th>Country</Th>
                     <Th>Visited</Th>
-                    <Th>Wishlist</Th>
+                    <Th>Wish list</Th>
                   </Tr>
                 </Thead>
                 <Tbody>
                   {getCities().map((city: City) => (
-                    <Tr key={city.id}>
+                    <Tr key={city.id} data-testid={city.id}>
                       <Td>{city.name}</Td>
                       <Td>{city.country}</Td>
                       <Td>
-                        <Checkbox checked={city.visited} />
+                        <Checkbox isChecked={city.visited} role="checkbox" onChange={() => handleToggleVisited(city)} />
                       </Td>
                       <Td>
-                        <Checkbox checked={city.wishlist} />
+                        <Checkbox isChecked={city.wishlist} />
                       </Td>
                     </Tr>
                   ))}
@@ -98,7 +109,14 @@ export const Home: FC = () => {
               <AlertIcon />
               <AlertTitle mr={2}>Error</AlertTitle>
               <AlertDescription>Unable to perform the search</AlertDescription>
-              <CloseButton position="absolute" right="8px" top="8px" />
+            </Alert>
+          )}
+
+          {mutationError && (
+            <Alert status="error">
+              <AlertIcon />
+              <AlertTitle mr={2}>Error saving</AlertTitle>
+              <AlertDescription>Unable to perform the update</AlertDescription>
             </Alert>
           )}
         </VStack>

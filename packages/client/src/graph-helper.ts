@@ -14,6 +14,18 @@ export const searchQuery = gql`
   }
 `
 
+export const cityMutation = gql`
+  mutation updateCity($citiesInput: CitiesMutationInput!) {
+    updateCity(input: $citiesInput) {
+      id
+      name
+      country
+      visited
+      wishlist
+    }
+  }
+`
+
 export interface City {
   id: number
   name: string
@@ -28,4 +40,10 @@ export interface CityData {
 
 export interface CityFilter {
   name: string
+}
+
+export interface CitiesMutationInput {
+  id: number
+  visited: boolean
+  wishlist: boolean
 }

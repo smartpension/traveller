@@ -1,14 +1,21 @@
 import React from 'react'
-import { fireEvent, screen, waitFor } from '@testing-library/react'
+import { fireEvent, screen, waitFor, within } from '@testing-library/react'
 import { render } from '../test-utils'
 import { Home } from '../Home'
 import { MockedProvider } from '@apollo/client/testing'
-import { mockGraphQlEmpty, mockGraphQlError, mockGraphQlWithRows } from '../__mocks__/graphql-mock'
+import {
+  getGraphQlMutation,
+  mockGraphQlEmpty,
+  mockGraphQlError,
+  mockGraphQlWithRows,
+  mockGraphQlFilteredWithRows,
+  getGraphQlMutationError,
+} from '../__mocks__/graphql-mock'
 
 describe('Home component', () => {
   it('shows empty table when we have empty data', async () => {
     render(
-      <MockedProvider mocks={mockGraphQlEmpty} addTypename={false}>
+      <MockedProvider mocks={[mockGraphQlEmpty]} addTypename={false}>
         <Home />
       </MockedProvider>
     )
@@ -22,10 +29,15 @@ describe('Home component', () => {
 
   it('shows spinner when waiting', () => {
     render(
-      <MockedProvider mocks={mockGraphQlWithRows} addTypename={false}>
+      <MockedProvider mocks={[]} addTypename={false}>
         <Home />
       </MockedProvider>
     )
+
+    const SearchComponent = screen.getByRole('button')
+
+    // do a search
+    fireEvent.click(SearchComponent)
 
     const Spinner = screen.getByTestId('spinner')
 
@@ -34,7 +46,7 @@ describe('Home component', () => {
 
   it('shows table with matching row', async () => {
     render(
-      <MockedProvider mocks={mockGraphQlWithRows} addTypename={false}>
+      <MockedProvider mocks={[mockGraphQlWithRows]} addTypename={false}>
         <Home />
       </MockedProvider>
     )
@@ -53,7 +65,7 @@ describe('Home component', () => {
 
   it('shows table with filter set', async () => {
     render(
-      <MockedProvider mocks={mockGraphQlWithRows} addTypename={false}>
+      <MockedProvider mocks={[mockGraphQlFilteredWithRows]} addTypename={false}>
         <Home />
       </MockedProvider>
     )
@@ -74,7 +86,7 @@ describe('Home component', () => {
 
   it('shows alert when there is an error', async () => {
     render(
-      <MockedProvider mocks={mockGraphQlError} addTypename={false}>
+      <MockedProvider mocks={[mockGraphQlError]} addTypename={false}>
         <Home />
       </MockedProvider>
     )
@@ -89,5 +101,61 @@ describe('Home component', () => {
     const Alert = screen.getByRole('alert')
 
     expect(Alert).not.toBeNull()
+  })
+
+  it.skip('shows alert when there is a mutation error', async () => {
+    render(
+      <MockedProvider mocks={[mockGraphQlWithRows, getGraphQlMutationError]} addTypename={false}>
+        <Home />
+      </MockedProvider>
+    )
+
+    const SearchComponent = screen.getByRole('button')
+
+    // do a search
+    fireEvent.click(SearchComponent)
+
+    // wait for render
+    const checkBoxes = await waitFor(() => screen.getAllByRole('checkbox'))
+
+    // get 2nd visited checkbox
+    const secondVisitor = checkBoxes[3]
+    fireEvent.click(secondVisitor)
+
+    // wait for it to call mutation
+    //await waitFor(() => screen.getAllByRole('checkbox'))
+
+    // wait for render
+    await waitFor(() => screen.getByText(/.*Error saving.*/))
+    const Alert = screen.getByRole('alert')
+
+    expect(Alert).not.toBeNull()
+  })
+
+  it('updates visted for city when clicked', async () => {
+    const wasMutationCalled = jest.fn()
+
+    render(
+      <MockedProvider mocks={[mockGraphQlWithRows, getGraphQlMutation(wasMutationCalled)]} addTypename={false}>
+        <Home />
+      </MockedProvider>
+    )
+
+    const SearchComponent = screen.getByRole('button')
+
+    // do a search
+    fireEvent.click(SearchComponent)
+
+    // wait for render
+    const checkBoxes = await waitFor(() => screen.getAllByRole('checkbox'))
+
+    // get 2nd visited checkbox
+    const secondVisitor = checkBoxes[3]
+    fireEvent.click(secondVisitor)
+
+    // wait for it to call mutation
+    await waitFor(() => screen.getAllByRole('checkbox'))
+
+    expect(wasMutationCalled).toHaveBeenCalled()
   })
 })

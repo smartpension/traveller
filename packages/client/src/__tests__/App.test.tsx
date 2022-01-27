@@ -9,7 +9,7 @@ import { mockGraphQlWithRows } from '../__mocks__/graphql-mock'
 describe('<App /> component', () => {
   it('renders the Header content', async () => {
     render(
-      <MockedProvider mocks={mockGraphQlWithRows} addTypename={false}>
+      <MockedProvider mocks={[mockGraphQlWithRows]} addTypename={false}>
         <BrowserRouter>
           <App />
         </BrowserRouter>
