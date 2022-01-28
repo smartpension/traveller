@@ -104,35 +104,6 @@ describe('Home component', () => {
     expect(Alert).not.toBeNull()
   })
 
-  it.skip('shows alert when there is a mutation error', async () => {
-    render(
-      <MockedProvider mocks={[mockGraphQlWithRows, getGraphQlMutationError]} addTypename={false}>
-        <Home />
-      </MockedProvider>
-    )
-
-    const SearchComponent = screen.getByRole('button')
-
-    // do a search
-    fireEvent.click(SearchComponent)
-
-    // wait for render
-    const checkBoxes = await waitFor(() => screen.getAllByRole('checkbox'))
-
-    // get 2nd visited checkbox
-    const secondVisitor = checkBoxes[3]
-    fireEvent.click(secondVisitor)
-
-    // wait for it to call mutation
-    //await waitFor(() => screen.getAllByRole('checkbox'))
-
-    // wait for render
-    await waitFor(() => screen.getByText(/.*Error saving.*/))
-    const Alert = screen.getByRole('alert')
-
-    expect(Alert).not.toBeNull()
-  })
-
   it('updates visited for city when clicked', async () => {
     const wasMutationCalled = jest.fn()
 
